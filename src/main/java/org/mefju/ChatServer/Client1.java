@@ -2,20 +2,17 @@ package org.mefju.ChatServer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Client1 extends JFrame {
-    private JTextArea chatArea;
-    private JTextField inputField;
-    private JLabel statusLabel;
+    private final JTextArea chatArea;
+    private final JTextField inputField;
+    private final JLabel statusLabel;
     private PrintWriter writer;
-    private String nick;
+    private final String nick;
 
     public Client1(String nick) throws HeadlessException {
         this.nick = nick;
@@ -23,19 +20,21 @@ public class Client1 extends JFrame {
         setSize(400,400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        statusLabel = new JLabel("👤 Partner: ???");
+        statusLabel = new JLabel("👤 Nickname twój:"+nick);
         add(statusLabel, BorderLayout.NORTH);
 
         chatArea = new JTextArea();
         chatArea.setEditable(false);
         add(new JScrollPane(chatArea), BorderLayout.CENTER);
 
+
         inputField = new JTextField();
         JButton sendButton = new JButton("Wyślij");
-
         JPanel bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.add(inputField, BorderLayout.CENTER);
         bottomPanel.add(sendButton, BorderLayout.EAST);
+
+
 
         add(bottomPanel, BorderLayout.SOUTH);
 
@@ -46,6 +45,7 @@ public class Client1 extends JFrame {
         setVisible(true);
 
     }
+
 
     private void connectToServer() {
         try {

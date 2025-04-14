@@ -2,10 +2,7 @@ package org.mefju.ChatServer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -26,23 +23,21 @@ public class Client2 extends JFrame{
         setLocationRelativeTo(null);
 
         // Status online
-        statusLabel = new JLabel("👤 Partner: ???");
+        statusLabel = new JLabel("👤 Nickname twój:"+nick);
         add(statusLabel, BorderLayout.NORTH);
 
         chatArea = new JTextArea();
         chatArea.setEditable(false);
         add(new JScrollPane(chatArea), BorderLayout.CENTER);
 
+
         inputField = new JTextField();
         JButton sendButton = new JButton("Wyślij");
-
         JPanel bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.add(inputField, BorderLayout.CENTER);
         bottomPanel.add(sendButton, BorderLayout.EAST);
 
         add(bottomPanel, BorderLayout.SOUTH);
-
-
         inputField.addActionListener(e -> sendMessage());
         sendButton.addActionListener(e->sendMessage());
 
@@ -50,6 +45,8 @@ public class Client2 extends JFrame{
 
         setVisible(true);
     }
+
+
 
     private void connectToServer() {
         try {
@@ -92,6 +89,7 @@ public class Client2 extends JFrame{
         String nick = JOptionPane.showInputDialog("Podaj swój nick:");
         if (nick != null && !nick.trim().isEmpty()) {
             SwingUtilities.invokeLater(() -> new Client2(nick.trim()));
+
         }
     }
 }
